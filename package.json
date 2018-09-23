@@ -1,0 +1,19 @@
+{
+  "name": "aced",
+  "version": "1.0.0",
+  "description": "Effective computing for better song queue selection",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ACalverley/ACED.git"
+  },
+  "author": "Aidan Calverley <aidan.calverey@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ACalverley/ACED/issues"
+  },
+  "homepage": "https://github.com/ACalverley/ACED#readme"
+}
