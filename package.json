@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/ACalverley/ACED/issues"
   },
-  "homepage": "https://github.com/ACalverley/ACED#readme"
+  "homepage": "https://github.com/ACalverley/ACED#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0"
+  }
 }
