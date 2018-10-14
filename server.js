@@ -17,7 +17,9 @@ app.use(express.static(__dirname + '/public'))
 
 app.use('/user', require('./public/routes/user_router.js'));
 
-app.use('/login', require('./public/routes/login_router.js'));  
+app.use('/login', require('./public/routes/login_router.js'));
+
+app.use('/playlist', require('./public/routes/playlist_router.js'));
 
 
 console.log('Listening on 8888');
