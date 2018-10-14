@@ -21,7 +21,7 @@ const redirect_uri = "http://localhost:8888/login/callback"; // Your redirect ur
 var stateKey = 'spotify_auth_state';
 
 router.use(function timeLog (req, res, next) {
-  // console.log('Time: ', Date.now());
+  console.log('Time: ', Date.now());
   next();
 });
 
@@ -57,6 +57,7 @@ router.get('/callback', function(req, res) {
       }));
   } else {
     res.clearCookie(stateKey);
+
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
@@ -78,23 +79,27 @@ router.get('/callback', function(req, res) {
 
         // var user = User(access_token, refresh_token);
 
-        // var options = {
-        //   url: 'https://api.spotify.com/v1/me',
-        //   headers: { 'Authorization': 'Bearer ' + access_token },
-        //   json: true
-        // };
-
+        var options = {
+          url: 'https://api.spotify.com/v1/me',
+          headers: { 'Authorization': 'Bearer ' + access_token },
+          json: true
+        };
+        
+        var user_id;
         // use the access token to access the Spotify Web API
-        // request.get(options, function(error, response, body) {
-        //   console.log(body);
-        // });
+        request.get(options, function(error, response, body) {
+          user_id = body.id;
+          console.log("user body is: " + body);
 
-        // we can also pass the token to the browser to make requests from there
-        res.redirect('/user?' +
+          res.redirect('/playlist/create?' +
           querystring.stringify({
             access_token: access_token,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            user_id: user_id
           }));
+        });
+
+        // we can also pass the token to the browser to make requests from there
         // res.redirect('/home');
       } else {	
         res.redirect('/#' +

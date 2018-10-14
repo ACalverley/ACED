@@ -6,6 +6,8 @@ const express = require('express'),
       querystring = require('querystring');
       cookieParser = require('cookie-parser');
 
+var access_token, refresh_token, client_id;
+
 router.use(function timeLog (req, res, next) {
   console.log('Time: ', Date.now());
   next();
@@ -13,7 +15,11 @@ router.use(function timeLog (req, res, next) {
 
 // called when /user endpoint is hit
 // get users saved albums and look at what genres they like
-router.get('/',(req, res)=>{var access_token = req.query.access_token;
+router.get('/',(req, res)=>{
+  access_token = req.query.access_token;
+  refresh_token = req.query.refresh_token;
+  client_id = req.query.client_id;
+
   // console.log('here is token: ' + access_token);
   
   // var playSong = {
@@ -70,6 +76,8 @@ router.get('/',(req, res)=>{var access_token = req.query.access_token;
   				if (err) console.log(err);
   				else {
   					console.log(body.genres);
+
+            request.post()
   				}
   			});
   		}

@@ -17,10 +17,11 @@ router.use(function timeLog (req, res, next) {
 });
 
 router.get('/create', (req, res) => {
+    console.log("inside playlist_router");
     var createPlaylist = {
-        url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+        url: 'https://api.spotify.com/v1/users/' + req.query.user_id + '/playlists',
         headers: {
-            'Authorization': 'Bearer ' + access_token,
+            'Authorization': 'Bearer ' + req.query.access_token,
             'Content-Type': 'application/json'
         },
         body: {
@@ -34,8 +35,12 @@ router.get('/create', (req, res) => {
     request.post(createPlaylist, (err, response, body)=>{
         if (err) console.log(err);
         else{
-            console.log(body.uri);
+            console.log("here is the uri: " + body.collaborative);
         }
     });
+
+    res.sendFile("test.html", {"root": __dirname + '/../'});
 });
 
+
+module.exports = router;
