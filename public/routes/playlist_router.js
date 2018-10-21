@@ -5,17 +5,25 @@
  */
 require('dotenv').config();
 const express = require('express'),
-      router = express.Router();
-      request = require('request'); // "Request" library
-      cors = require('cors');
-      querystring = require('querystring');
-      cookieParser = require('cookie-parser');
+    router = express.Router();
+    request = require('request'); // "Request" library
+    cors = require('cors');
+    querystring = require('querystring');
+    cookieParser = require('cookie-parser');
 
-router.use(function timeLog (req, res, next) {
-//   console.log('Time: ', Date.now());
-  next();
+
+var playlistSchema = new mongoose.Schema({
+    client_id: String,
+    // this will store the playlists URI
+    createdPlaylist: String,
 });
 
+router.use(function timeLog(req, res, next) {
+    //   console.log('Time: ', Date.now());
+    next();
+});
+
+// creates a playlist for the user
 router.get('/create', (req, res) => {
     console.log("inside playlist_router");
     var createPlaylist = {
@@ -26,20 +34,21 @@ router.get('/create', (req, res) => {
         },
         body: {
             'name': 'Sunshine and Rainbows',
-            'public': false,
+            'public': true,
             'description': 'A new ACED playlist'
         },
         json: true,
     };
-    
-    request.post(createPlaylist, (err, response, body)=>{
+
+    request.post(createPlaylist, (err, response, body) => {
         if (err) console.log(err);
-        else{
-            console.log("here is the uri: " + body.collaborative);
+        else {
+            // console.log(response.body);
+            console.log("here is the uri: " + body.uri);
         }
     });
 
-    res.sendFile("test.html", {"root": __dirname + '/../'});
+    res.sendFile("test.html", { "root": __dirname + '/../' });
 });
 
 
