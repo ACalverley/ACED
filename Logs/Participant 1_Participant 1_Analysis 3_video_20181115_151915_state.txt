@@ -1,0 +1,18 @@
+Video analysis state log
+
+Face Model:	General
+Calibration:	-
+Start time:	11/15/2018 15:13:07.737
+Filename:	
+Frame rate:	15.00
+
+Video Time	Emotion
+00:00:00.000	Unknown
+00:00:01.133	Neutral
+00:00:07.800	Happy
+00:00:10.266	Unknown
+00:00:10.933	Happy
+00:00:13.800	Neutral
+00:00:21.933	Unknown
+00:00:22.600	Neutral
+00:00:29.333	END
