@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
           'Authorization': 'Bearer ' + access_token
         },
         qs: {
-            type: 3
+            limit: '3'
         },
         json: true
     };
@@ -43,27 +43,32 @@ router.get('/', async (req, res) => {
           'Authorization': 'Bearer ' + access_token
         },
         qs: {
-            type: 2
+            limit: '2'
         },
         json: true
     };
 
     console.log("getting top tracks");
-    var topTracks, topArtists, recommendedTracks;
+    var topTracks = [], topArtists = [], recommendedTracks = [];
 
-    rp.get(getTopTracks, (topTrackRes) => {
-        if (topTrackRes){
-            for (var i = 0; i < topTrackRes.items.length; i++){
-                topTracks.push(topTrackRes.items[i].id);
+    rp.get(getTopTracks, (error, response, body) => {
+        if (!error){
+            for (var i = 0; i < body.items.length; i++){
+                topTracks.push(body.items[i].id);
+                console.log(body.items[i].name);
             }
         }
 
-        rp.get(getTopArtists, (topArtistRes) => {
-            if (topArtistRes){
-                for (var i = 0; i < topArtistRes.items.length; i++){
-                    topArtists.push(topArtistRes.items[i].id);
+        rp.get(getTopArtists, (error, response, body) => {
+            if (!error){
+                for (var i = 0; i < body.items.length; i++){
+                    topArtists.push(body.items[i].id);
+                    console.log(body.items[i].name);
                 }
             }
+
+            console.log(topArtists);
+            console.log(topTracks);
 
             var getRecommendation = {
                 url: 'https://api.spotify.com/v1/recommendations',
@@ -71,38 +76,30 @@ router.get('/', async (req, res) => {
                   'Authorization': 'Bearer ' + access_token
                 },
                 qs: {
-                    limit: 10,
-                    seed_artists: topArtists,
-                    seed_tracks: topTracks,
-                    target_valence: 0.9,
-                    target_tempo: 0.9
+                    limit: 50,
+                    seed_artists: topArtists.toString(),
+                    seed_tracks: topTracks.toString(),
+                    max_valence: 0.1,
+                    max_tempo: 80
                 },
                 json: true
             };
 
-            rp.get(getRecommendation, (recommendationRes) => {
-                for (var i = 0; i < recommendationRes.tracks.length; i++) {
-                    recommendedTracks.push(recommendationRes.tracks[i].uri);
-                    console.log(recommendationRes.tracks[i].name);
+            rp.get(getRecommendation, (error, response, body) => {
+                // console.log(body);
+
+                for (var i = 0; i < body.tracks.length; i++) {
+                    recommendedTracks.push(body.tracks[i].uri);
+                    console.log(body.tracks[i].name);
                 }
-                
-                var getPlaylist = {
-                    url: 'localhost:8888/playlist/create',
-                    body: {
-                        user_id: user_id,
-                        access_token: access_token,
-                        refresh_token: refresh_token,
-                        tracks: recommendedTracks
-                    },
-                    json: true
-                };
-
-                rp.get(getPlaylist, (playlistRes) => {
-                    
-
-                    res.redirect('/../index.ejs', {playlist_id: playlistID});
-                });
             
+                res.redirect('/playlist/create?' +
+                        querystring.stringify({
+                            access_token: access_token,
+                            user_id: user_id,
+                            tracks: recommendedTracks
+                        }));
+                
             });
 
         });

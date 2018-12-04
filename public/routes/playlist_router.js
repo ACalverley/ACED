@@ -27,6 +27,8 @@ router.use(function timeLog(req, res, next) {
 
 // creates a playlist for the user
 router.get('/create', (req, res) => {
+    trackURIs = req.query.tracks;
+
     console.log("inside playlist_router");
     var createPlaylist = {
         url: 'https://api.spotify.com/v1/users/' + req.query.user_id + '/playlists',
@@ -42,12 +44,10 @@ router.get('/create', (req, res) => {
         json: true,
     };
 
-    request.post(createPlaylist, (err, createPlaylistRes) => {
+    request.post(createPlaylist, (err, response, body) => {
         if (err) console.log(err);
         else {
-            //console.log(body);
-            playlistID = createPlaylistRes.body.id;
-            console.log("here is the uri: " + playlistID);
+            playlistID = body.id;
 
             //add songs to playlist
             var addSong = {
@@ -57,7 +57,7 @@ router.get('/create', (req, res) => {
                     'Content-Type': 'application/json'
                 },
                 body: {
-                    'uris': ["spotify:track:5IaHrVsrferBYDm0bDyABy"]
+                    'uris': trackURIs
                 },
                 json: true,
             };
@@ -65,9 +65,12 @@ router.get('/create', (req, res) => {
             request.post(addSong, (err, addSongRes) => {
                 if (err) console.log(err);
                 else {
-                    console.log("Redirecting to index...");
-                    
-                    res.send({playlist_id: playlistID});
+                    console.log("Redirecting back to user router");
+
+                    res.redirect("/?" + 
+                        querystring.stringify({
+                            playlist_id: playlistID
+                        }));
                 }
             });
         }

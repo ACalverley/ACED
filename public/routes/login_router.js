@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
     res.cookie(stateKey, state);
 
     // your application requests authorization
-    var scope = 'user-read-private user-read-email user-modify-playback-state user-library-read playlist-modify-public';
+    var scope = 'user-read-private user-read-email user-modify-playback-state user-library-read playlist-modify-public user-top-read';
     res.redirect('https://accounts.spotify.com/authorize?' +
         querystring.stringify({
             response_type: 'code',
@@ -90,7 +90,7 @@ router.get('/callback', function(req, res) {
                     var user_id = body.id;
                     console.log("user body is: " + body);
 
-                    res.redirect('/playlist/create?' +
+                    res.redirect('/user?' +
                         querystring.stringify({
                             access_token: access_token,
                             refresh_token: refresh_token,
