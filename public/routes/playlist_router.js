@@ -11,6 +11,7 @@ const express = require('express'),
     querystring = require('querystring');
     cookieParser = require('cookie-parser');
 
+var playlistID;
 
 // var playlistSchema = new mongoose.Schema({
 //     client_id: String,
@@ -40,15 +41,37 @@ router.get('/create', (req, res) => {
         json: true,
     };
 
-    request.post(createPlaylist, (err, response, body) => {
+    request.post(createPlaylist, (err, body) => {
         if (err) console.log(err);
         else {
             // console.log(response.body);
-            console.log("here is the uri: " + body.uri);
+            playlistID = body.id;
+            console.log("here is the uri: " + playlistID);
+
+            //add songs to playlist
+            var addSong = {
+                url: 'https://api.spotify.com/v1/playlists/' + playlistID + '/tracks',
+                headers: {
+                    'Authorization': 'Bearer ' + req.query.access_token,
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    'uris': ["spotify:track:5IaHrVsrferBYDm0bDyABy"]
+                },
+                json: true,
+            };
+
+            request.post(addSong, (err, res) => {
+                if (err) console.log(err);
+                else {
+                    console.log("Redirecting to index...");
+                    res.redirect('/../index.ejs', {playlist_id: playlistID});
+                }
+            });
         }
     });
 
-    res.sendFile("test.html", { "root": __dirname + '/../' });
+    // res.sendFile("test.html", { "root": __dirname + '/../' });
 });
 
 
