@@ -40,23 +40,22 @@ router.get('/', async (req, res) => {
     var newUser;
     
     // create new user in database or retrieve existing information 
-    Models.User.findOneAndUpdate({client_id: client_id}, update, (err, user) => {
-        if (err) return handleError(err);
+    // Models.User.findOneAndUpdate({client_id: client_id}, update, (err, user) => {
+    //     if (err) return handleError(err);
 
-        if (user) {
-            console.log("client id already exists - updating tokens!");
-            newUser = user;
-        }
-        else {
-            newUser = new Models.User(initialize);
-            newUser.save((err) => {
-                if (err) return handleError(err);
-                console.log("created new user!");
-            });
-        }
-    });
-    
-    // console.log('here is token: ' + access_token);
+    //     if (user) {
+    //         console.log("client id already exists - updating tokens!");
+    //         newUser = user;
+    //     }
+    //     else {
+    //         newUser = new Models.User(initialize);
+    //         newUser.save((err) => {
+    //             if (err) return handleError(err);
+    //             console.log("created new user!");
+    //         });
+    //     }
+    // });
+
 
     // var playSong = {
     //     url: 'https://api.spotify.com/v1/me/player/play',
@@ -72,9 +71,6 @@ router.get('/', async (req, res) => {
     //   }
     // });
 
-
-    // var flag = true;
-    // var genres = new Map();
 
     // while (flag) {
     var offset = 0;
