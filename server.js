@@ -20,6 +20,9 @@ app.use('/user', require('./public/routes/user_router.js'));
 
 app.use('/login', require('./public/routes/login_router.js'));
 
+app.set("view engine", "ejs");
+app.set("views", __dirname + "\\public");
+
 console.log('Listening on 8888');
 app.listen(8888);
 
