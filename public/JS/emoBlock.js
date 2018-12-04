@@ -17,10 +17,10 @@
 
 array = require('parsetxt');
 function emoBlock(){
-
+var eBlock = 0;
 // adds block in order of neutral, happy, sad etc
 // loop through each emotion
-    for (i = posi; i < pso + emoCount; i++){
+    for (i = posi; i < posi + emoCount; i++){
         // each emotion, go through each new data piece      
             for (k = count; k < count + blockSize; k++){
             eBlock = eBlock + array[i, k];
@@ -34,5 +34,8 @@ function emoBlock(){
     //updating globals for next run 
     blockCount = blockCount + blockSize;
     increment ++;
+    //call to complete the difference 
+    blockDifference(); // or call it from outside if this doesnt work 
     return cBlock;
 }
+
