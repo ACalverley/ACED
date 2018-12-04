@@ -19,10 +19,16 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "count-array-values": "^1.2.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "express-xml-bodyparser": "^0.3.0",
+    "mongoose": "^5.3.4",
     "querystring": "^0.2.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "request-promise-native": "^1.0.5",
+    "xml-js": "^1.6.8"
   }
 }
