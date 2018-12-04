@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express'); // Express web server framework
 		cors = require('cors');
 		cookieParser = require('cookie-parser');
-		Models = require('./public/models/models.js');
+		// Models = require('./public/models/models.js');
 
 // ES6 usage of classes
 // import {User} from '/public/JS/user.js';

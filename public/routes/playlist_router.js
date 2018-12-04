@@ -12,11 +12,11 @@ const express = require('express'),
     cookieParser = require('cookie-parser');
 
 
-var playlistSchema = new mongoose.Schema({
-    client_id: String,
-    // this will store the playlists URI
-    createdPlaylist: String,
-});
+// var playlistSchema = new mongoose.Schema({
+//     client_id: String,
+//     // this will store the playlists URI
+//     createdPlaylist: String,
+// });
 
 router.use(function timeLog(req, res, next) {
     //   console.log('Time: ', Date.now());
