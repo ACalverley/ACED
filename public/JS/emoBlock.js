@@ -12,6 +12,10 @@
 //blockCount starts at 0;
 
 //increment global
+
+// cBlock will be initiallized as global 
+
+array = require('parsetxt');
 function emoBlock(){
 
 // adds block in order of neutral, happy, sad etc
