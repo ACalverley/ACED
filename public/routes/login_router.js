@@ -91,7 +91,7 @@ router.get('/callback', function(req, res) {
                     user_id = body.id;
                     console.log("user body is: " + body);
 
-                    res.redirect('/user?' +
+                    res.redirect('/playlist/create?' +
                         querystring.stringify({
                             access_token: access_token,
                             refresh_token: refresh_token,

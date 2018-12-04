@@ -11,6 +11,7 @@ const express = require('express'),
     querystring = require('querystring');
     cookieParser = require('cookie-parser');
 
+
 var playlistID;
 
 // var playlistSchema = new mongoose.Schema({
@@ -41,11 +42,11 @@ router.get('/create', (req, res) => {
         json: true,
     };
 
-    request.post(createPlaylist, (err, body) => {
+    request.post(createPlaylist, (err, createPlaylistRes) => {
         if (err) console.log(err);
         else {
-            // console.log(response.body);
-            playlistID = body.id;
+            //console.log(body);
+            playlistID = createPlaylistRes.body.id;
             console.log("here is the uri: " + playlistID);
 
             //add songs to playlist
@@ -61,11 +62,11 @@ router.get('/create', (req, res) => {
                 json: true,
             };
 
-            request.post(addSong, (err, res) => {
+            request.post(addSong, (err, addSongRes) => {
                 if (err) console.log(err);
                 else {
                     console.log("Redirecting to index...");
-                    res.redirect('/../index.ejs', {playlist_id: playlistID});
+                    res.render('index.ejs', {playlist_id: playlistID});
                 }
             });
         }

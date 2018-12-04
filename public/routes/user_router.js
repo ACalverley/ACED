@@ -91,9 +91,9 @@ router.get('/', async (req, res) => {
                 json: true
             };
 
-            rp.get(getRecommendation, (recommendationRes) =>{
-                for (var i = 0; i < recommendationRes, )
-            });
+            // rp.get(getRecommendation, (recommendationRes) =>{
+            //     for (var i = 0; i < recommendationRes, )
+            // });
 
         });
     });
