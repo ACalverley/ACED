@@ -11,27 +11,37 @@ function blockDifference(){
    var happBlock = 0;
    var sadBlock = 0;
 
-    for (i = 0; i < 2; i++){
         for (j = WinLoco; j < WindowSize; j++){
             //neuBlock = cBlock[]
             happBlock = happBlock + cBlock[(posi + 1), j]
             sadBlock = sadBlock + cBlock[(posi + 2),j]
-
         }
-    }
+    
     var bDiff = happBlock - sadBlock;
 
     //means algo is not doing its job 
         if (bDiff < 0){
             //increase parameters to try to improve state 
             bDiffSum ++;
+            bDifferenceSum();
+        }
+        else{
+            //positive trend
+            bDiffSum --;
         }
         bDiff = 0;
     WinLoco ++;
-    // will be using cBlock;
-    return bDiffSum;
 }
 
+
+function bDifferenceSum() {
+    if (bDiffSum < bThresh) {
+        //alter parameters here in the case of consistent decrease
+        valence = valance + 0.1; 
+    }
+}
 /*
     if bDiffSum is greater than a certain threshold, perform action
+    action will be to switch songs right now 
+
 */
