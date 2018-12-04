@@ -23,7 +23,7 @@ router.use(function timeLog(req, res, next) {
 // get users saved albums and look at what genres they like
 router.get('/', async (req, res) => {
     client_id = req.query.client_id;
-    access_token = req.query.access_token; 
+    access_token = req.query.access_token;
     refresh_token = req.query.refresh_token;
 
     var initialize = {
