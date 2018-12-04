@@ -9,7 +9,7 @@ const express = require('express');
     // Models = require('./../models/models.js');
     // count = require('count-array-values');
 
-var access_token, refresh_token, client_id;
+var access_token, refresh_token, user_id;
 
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
@@ -22,20 +22,9 @@ router.use(function timeLog(req, res, next) {
 // called when /user endpoint is hit
 // get users saved albums and look at what genres they like
 router.get('/', async (req, res) => {
-    client_id = req.query.client_id;
+    user_id = req.query.user_id;
     access_token = req.query.access_token;
     refresh_token = req.query.refresh_token;
-
-    var initialize = {
-        client_id: client_id,
-        access_token: access_token, 
-        refresh_token: refresh_token
-    };
-
-    var update = {
-        access_token: access_token, 
-        refresh_token: refresh_token
-    };
 
     var getTopTracks = {
         url: 'https://api.spotify.com/v1/me/top/tracks',
@@ -91,13 +80,45 @@ router.get('/', async (req, res) => {
                 json: true
             };
 
-            rp.get(getRecommendation, (recommendationRes) =>{
-                for (var i = 0; i < recommendationRes, )
+            rp.get(getRecommendation, (recommendationRes) => {
+                for (var i = 0; i < recommendationRes.tracks.length; i++) {
+                    recommendedTracks.push(recommendationRes.tracks[i].uri);
+                    console.log(recommendationRes.tracks[i].name);
+                }
+                
+                var getPlaylist = {
+                    url: 'localhost:8888/playlist/create',
+                    body: {
+                        user_id: user_id,
+                        access_token: access_token,
+                        refresh_token: refresh_token,
+                        tracks: recommendedTracks
+                    },
+                    json: true
+                };
+
+                rp.get(getPlaylist, (playlistRes) => {
+                    
+
+                    res.redirect('/../index.ejs', {playlist_id: playlistID});
+                });
+            
             });
 
         });
     });
+    
 
+    // var initialize = {
+    //     client_id: client_id,
+    //     access_token: access_token, 
+    //     refresh_token: refresh_token
+    // };
+
+    // var update = {
+    //     access_token: access_token, 
+    //     refresh_token: refresh_token
+    // };
 
     // var newUser;
     

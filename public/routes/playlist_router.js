@@ -65,7 +65,7 @@ router.get('/create', (req, res) => {
                 if (err) console.log(err);
                 else {
                     console.log("Redirecting to index...");
-                    res.redirect('/../index.ejs', {playlist_id: playlistID});
+                    res.send({playlist_id: playlistID});
                 }
             });
         }
