@@ -1,9 +1,8 @@
 require('dotenv').config();
-var express = require('express'); // Express web server framework
-// var session = require('express-session');
-var request = require('request'); // "Request" library
-var cors = require('cors');
-var cookieParser = require('cookie-parser');
+const express = require('express'); // Express web server framework
+		cors = require('cors');
+		cookieParser = require('cookie-parser');
+		Models = require('./public/models/models.js');
 
 // ES6 usage of classes
 // import {User} from '/public/JS/user.js';
@@ -15,10 +14,11 @@ app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
 
+app.use('/playlist',require('./public/routes/playlist_router.js'));
+
 app.use('/user', require('./public/routes/user_router.js'));
 
-app.use('/login', require('./public/routes/login_router.js'));  
-
+app.use('/login', require('./public/routes/login_router.js'));
 
 console.log('Listening on 8888');
 app.listen(8888);
