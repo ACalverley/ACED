@@ -9,6 +9,9 @@
 
 // emoCount will be set as number of emotions we plan on taking in 
 // emoCount = 3; 
+//blockCount starts at 0;
+
+//increment global
 function emoBlock(){
 
 // adds block in order of neutral, happy, sad etc
@@ -18,11 +21,14 @@ function emoBlock(){
             for (k = count; k < count + blockSize; k++){
             eBlock = eBlock + array[i, k];
             }       
-        cBlock[i,increment] = eBlock*0.66;
+        //increment along x axis 
+        cBlock[increment, i] = (eBlock*(2/3))/blockSize; // time TBD 
         eBlock = 0; // reset it for next round 
     }
-    //updating globals for next run 
-    count = count + blockSize;
-    increment ++;
+
     
+    //updating globals for next run 
+    blockCount = blockCount + blockSize;
+    increment ++;
+    return cBlock;
 }
