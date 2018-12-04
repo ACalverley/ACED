@@ -1,4 +1,7 @@
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+// This is for local file testing, ONLY.
+// You will have to change the file name in the Logs as well as update the
+// file name here in the readTextFile function
 
 function main () {
     text = readTextFile("file:///Users/willmcarthur/Documents/ACED/ACED/Logs/Participant1.txt");
