@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test!</title>
+</head>
+
+<body>
+    <button onclick="startWebcam();">Let me watch you</button>
+    <button onclick="screenshot();">Screenshot</button>
+    <video width="640" height="480" id='vid'></video>
+    <div id="root"></div>
+    <script src="../dist/bundle.js"></script>
+</body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type='text/babel' src="./JS/emotionGraph.js"></script>
+
+<script>
+	//--------------------
+	// GET USER MEDIA CODE
+	//--------------------
+	navigator.mediaDevices.getUserMedia = (navigator.mediaDevices.getUserMedia ||
+	    navigator.mediaDevices.webkitGetUserMedia ||
+	    navigator.mediaDevices.mozGetUserMedia ||
+	    navigator.mediaDevices.msGetUserMedia);
+
+	function screenshot() {
+		takeASnap()
+		.then(imgData => {
+			// console.log(data);
+			// stream = data.split(',').pop();
+			console.log(data);
+			// console.log(stream);
+
+			$.post('/webcam', {img: data}, function(data, status) {
+                console.log("status: " + status);
+            });
+   // 			stream = makeblob(data);
+   // 			console.log(stream);
+   // 			$.ajax({
+			//     url: '/webcam',
+			//     type: 'POST',
+			//     processData: false,
+			//     contentType: 'application/octet-stream',
+			//     data: stream
+			// })
+			// .done(function(data) {alert("success");})
+			// .fail(function() {alert("error");});
+		});
+	}
+
+	function convertBlobToBinary(blob){
+		return new Promise((resolve, reject) => {
+		    const reader = new FileReader;
+		    reader.onerror = reject;
+		    reader.onload = () => {
+		        resolve(reader.result);
+		    };
+		    reader.readAsDataURL(blob);
+		});
+	}
+
+
+	function startWebcam() {
+	    if (navigator.mediaDevices.getUserMedia) {
+	    	var vid = document.querySelector('video');
+
+	        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+		
+            //success callback
+            .then(localMediaStream => {
+            	vid.srcObject = localMediaStream;
+            	return vid.play();
+            });
+                
+		} else {
+		    console.log("getUserMedia not supported");
+		}
+	}
+
+	function takeASnap() {
+		const canvas = document.createElement('canvas'); // create a canvas
+	    const ctx = canvas.getContext('2d'); // get its context
+	    canvas.width = vid.videoWidth; // set its size to the one of the video
+	    canvas.height = vid.videoHeight;
+	    ctx.drawImage(vid, 0, 0, canvas.width, canvas.height); // the video
+
+	    return new Promise((resolve, reject) => {
+			canvas.toBlob(resolve, 'image/png');
+	    });
+	    // canvas.toDataURL('image/jpeg'); 
+	}
+</script>
+
+</html>

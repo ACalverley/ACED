@@ -79,8 +79,8 @@ router.get('/', async (req, res) => {
                     limit: 50,
                     seed_artists: topArtists.toString(),
                     seed_tracks: topTracks.toString(),
-                    max_valence: 0.1,
-                    max_tempo: 80
+                    max_valence: 1,
+                    max_tempo: 120
                 },
                 json: true
             };

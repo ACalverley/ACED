@@ -21,7 +21,7 @@ app.use('/user', require('./public/routes/user_router.js'));
 app.use('/login', require('./public/routes/login_router.js'));
 
 app.get('/', (req, res) => {
-	res.render('index', {playlist_id: req.query.playlist_id});
+	res.render('index.ejs', {playlist_id: req.query.playlist_id});
 });
 
 app.set("view engine", "ejs");
