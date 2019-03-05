@@ -1,0 +1,22 @@
+body {
+	background: url("images/bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+	overflow: hidden;
+}
+
+#title {
+	text-align: center;
+	padding-top: 3em;
+}
+
+#media-player {
+	padding-top: 1.5em;
+	text-align: center;
+}
+
+.centered {
+	text-align: center;
+}
+
+.aced-colour {
+	color: rgba(255,255,255,0.8);
+}

@@ -12,11 +12,13 @@ const express = require('express'),
     cookieParser = require('cookie-parser');
 
 
-var playlistSchema = new mongoose.Schema({
-    client_id: String,
-    // this will store the playlists URI
-    createdPlaylist: String,
-});
+var playlistID;
+
+// var playlistSchema = new mongoose.Schema({
+//     client_id: String,
+//     // this will store the playlists URI
+//     createdPlaylist: String,
+// });
 
 router.use(function timeLog(req, res, next) {
     //   console.log('Time: ', Date.now());
@@ -25,6 +27,8 @@ router.use(function timeLog(req, res, next) {
 
 // creates a playlist for the user
 router.get('/create', (req, res) => {
+    trackURIs = req.query.tracks;
+
     console.log("inside playlist_router");
     var createPlaylist = {
         url: 'https://api.spotify.com/v1/users/' + req.query.user_id + '/playlists',
@@ -43,12 +47,36 @@ router.get('/create', (req, res) => {
     request.post(createPlaylist, (err, response, body) => {
         if (err) console.log(err);
         else {
-            // console.log(response.body);
-            console.log("here is the uri: " + body.uri);
+            playlistID = body.id;
+
+            //add songs to playlist
+            var addSong = {
+                url: 'https://api.spotify.com/v1/playlists/' + playlistID + '/tracks',
+                headers: {
+                    'Authorization': 'Bearer ' + req.query.access_token,
+                    'Content-Type': 'application/json'
+                },
+                body: {
+                    'uris': trackURIs
+                },
+                json: true,
+            };
+
+            request.post(addSong, (err, addSongRes) => {
+                if (err) console.log(err);
+                else {
+                    console.log("Redirecting back to user router");
+
+                    res.redirect("/?" + 
+                        querystring.stringify({
+                            playlist_id: playlistID
+                        }));
+                }
+            });
         }
     });
 
-    res.sendFile("test.html", { "root": __dirname + '/../' });
+    // res.sendFile("test.html", { "root": __dirname + '/../' });
 });
 
 

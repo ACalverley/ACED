@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="icon" href="images/aced_logo.png">
+	<title>ACED</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Add Bootstrap Files -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<!-- Add Personal Files -->
+	<link href="/CSS/indexStyle.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> <!-- Fontawesome Icons -->
+	<script src="/JS/indexScripts.js"></script>	
+</head>
+
+<body>
+	<div class="main">
+		<div class="row aced-colour" id="title">
+			<div class="col">
+				<h1>ACED Solutions</h1>
+				<h5>Feel the music.</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col" id="media-player">
+				<iframe src="https://open.spotify.com/embed/user/slvml551vxcabss6l9nksrjes/playlist/<%= playlist_id %>" width="450" height="430" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+			</div>
+			<div class="col centered">
+				<div class="row">
+					<div class="col">
+						<h4 style="color: rgba(255,255,255,0.8);">How do you want to feel?</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col aced-colour">
+						<a class="btn btn-primary btn-lg" id="happy-button">Happy 😁</a>
+						<a class="btn btn-primary btn-lg" id="sad-button">Sad 😥</a>
+						<a class="btn btn-primary btn-lg" id="angry-button">Angry 😡</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
